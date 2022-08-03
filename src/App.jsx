@@ -39,6 +39,7 @@ function App() {
             />
           ))}
         </ul>
+        <p>You Have 2 Todos</p>
       </div>
     </div>
   );
