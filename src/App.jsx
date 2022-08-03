@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import './App.css';
+import Todo from './Components/Todo';
 
 const style = {
   bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#1D96A1] to-[#12EBCE]`,
@@ -9,14 +10,12 @@ const style = {
   form: `flex justify-between`,
   input: `border p-2 w-full text-xl`,
   button: `border p-4 ml-2 bg-purple-500 text-slate-100`,
-  // count: `text-center p-2`,
 };
 
 
 function App() {
 
-  const [todos, setTodos] = useState([]);
-  // const [input, setInput] = useState('');
+  const [todos, setTodos] = useState(['Learn React JS', 'Learn Next JS']);
 
   return (
     <div className={style.bg}>
@@ -24,8 +23,6 @@ function App() {
         <h3 className={style.heading}>TODO APP</h3>
         <form className={style.form}>
           <input
-            // value={input}
-            // onChange={(e) => setInput(e.target.value)}
             className={style.input}
             type='text'
             placeholder='Add Todo'
@@ -35,7 +32,12 @@ function App() {
           </button>
         </form>
         <ul>
-
+        {todos.map((todo, index) => (
+            <Todo
+              key={index}
+              todo={todo}
+            />
+          ))}
         </ul>
       </div>
     </div>
