@@ -18,6 +18,8 @@ function App() {
 
   const [todos, setTodos] = useState(['Learn React JS', 'Learn Next JS']);
 
+  // CRUD Functionality Firebase
+
   return (
     <div className={style.bg}>
       <div className={style.container}>
