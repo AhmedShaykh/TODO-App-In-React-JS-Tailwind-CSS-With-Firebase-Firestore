@@ -10,6 +10,7 @@ const style = {
   form: `flex justify-between`,
   input: `border p-2 w-full text-xl`,
   button: `border p-4 ml-2 bg-purple-500 text-slate-100`,
+  count: `text-center p-2`,
 };
 
 
@@ -39,7 +40,7 @@ function App() {
             />
           ))}
         </ul>
-        <p>You Have 2 Todos</p>
+        <p className={style.count}>You Have 2 Todos</p>
       </div>
     </div>
   );
