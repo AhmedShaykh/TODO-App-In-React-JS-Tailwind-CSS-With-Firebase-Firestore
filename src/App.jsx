@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import './App.css';
 import Todo from './Components/Todo';
+import { db } from './firebase';
+import {
+  query,
+  collection,
+  onSnapshot,
+  updateDoc,
+  doc,
+  addDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 
 const style = {
   bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#1D96A1] to-[#12EBCE]`,
@@ -18,7 +27,14 @@ function App() {
 
   const [todos, setTodos] = useState(['Learn React JS', 'Learn Next JS']);
 
-  // CRUD Functionality Firebase
+  // Create Todo
+  // Read Todo
+
+  useEffect(() => {
+    const q = query(collection(db, 'todos'))
+  }, [])
+  // Update Todo
+  // Delete Todo
 
   return (
     <div className={style.bg}>
@@ -35,7 +51,7 @@ function App() {
           </button>
         </form>
         <ul>
-        {todos.map((todo, index) => (
+          {todos.map((todo, index) => (
             <Todo
               key={index}
               todo={todo}
