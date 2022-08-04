@@ -9,7 +9,7 @@ import {
   updateDoc,
   doc,
   addDoc,
-  deleteDoc,
+  deleteDoc
 } from 'firebase/firestore';
 
 const style = {
@@ -25,14 +25,23 @@ const style = {
 
 function App() {
 
-  const [todos, setTodos] = useState(['Learn React JS', 'Learn Next JS']);
+  const [todos, setTodos] = useState([]);
 
   // Create Todo
-  // Read Todo
+  // Read TODO
 
   useEffect(() => {
-    const q = query(collection(db, 'todos'))
-  }, [])
+    const q = query(collection(db, 'todos'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let todosArr = [];
+      querySnapshot.forEach((doc) => {
+        todosArr.push({ ...doc.data(), id: doc.id });
+      });
+      setTodos(todosArr);
+    });
+    return () => unsubscribe();
+  }, []);
+
   // Update Todo
   // Delete Todo
 
