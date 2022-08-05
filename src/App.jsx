@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Todo from './Components/Todo';
-import { db } from './firebase';
+import { db } from './Components/Firebase';
 import {
   query,
   collection,
   onSnapshot,
-  updateDoc,
-  doc,
-  addDoc,
-  deleteDoc
+  //   updateDoc,
+  //   doc,
+  //   addDoc,
+  //   deleteDoc
 } from 'firebase/firestore';
 
 const style = {
