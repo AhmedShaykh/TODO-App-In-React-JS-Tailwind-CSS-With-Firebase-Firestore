@@ -3,13 +3,13 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Todo from './Components/Todo';
 import { db } from './Components/Firebase';
 import {
-  query,
-  collection,
-  onSnapshot,
-  //   updateDoc,
-  //   doc,
-  //   addDoc,
-  //   deleteDoc
+    query,
+    collection,
+    onSnapshot,
+    updateDoc,
+    doc,
+    // addDoc,
+    // deleteDoc
 } from 'firebase/firestore';
 
 const style = {
@@ -43,6 +43,12 @@ function App() {
   }, []);
 
   // Update Todo
+    const toggleComplete = async (todo) => {
+      await updateDoc(doc(db, 'todos', todo.id), {
+        completed: !todo.completed,
+      });
+    };
+
   // Delete Todo
 
   return (
@@ -64,6 +70,8 @@ function App() {
             <Todo
               key={index}
               todo={todo}
+              toggleComplete={toggleComplete}
+              // deleteTodo={deleteTodo}
             />
           ))}
         </ul>
