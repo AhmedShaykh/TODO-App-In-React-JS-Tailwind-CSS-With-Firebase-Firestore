@@ -3,13 +3,13 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Todo from './Components/Todo';
 import { db } from './Components/Firebase';
 import {
-    query,
-    collection,
-    onSnapshot,
-    updateDoc,
-    doc,
-    // addDoc,
-    // deleteDoc
+  query,
+  collection,
+  onSnapshot,
+  updateDoc,
+  doc,
+  addDoc,
+  // deleteDoc
 } from 'firebase/firestore';
 
 const style = {
@@ -26,10 +26,23 @@ const style = {
 function App() {
 
   const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState('');
 
-  // Create Todo
-  // Read TODO
+  // ============== Create Todo ============== //
+    const createTodo = async (e) => {
+      e.preventDefault(e);
+      if (input === '') {
+        alert('Please Enter a Valid TODO!');
+        return;
+      }
+      await addDoc(collection(db, 'todos'), {
+        text: input,
+        completed: false,
+      });
+      setInput('');
+    };
 
+  // ============== Read TODO ============== //
   useEffect(() => {
     const q = query(collection(db, 'todos'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -42,21 +55,23 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // Update Todo
-    const toggleComplete = async (todo) => {
-      await updateDoc(doc(db, 'todos', todo.id), {
-        completed: !todo.completed,
-      });
-    };
+  // ============== Update Todo ============== //
+  const toggleComplete = async (todo) => {
+    await updateDoc(doc(db, 'todos', todo.id), {
+      completed: !todo.completed,
+    });
+  };
 
-  // Delete Todo
+  // ============== Delete Todo ============== //
 
   return (
     <div className={style.bg}>
       <div className={style.container}>
         <h3 className={style.heading}>TODO APP</h3>
-        <form className={style.form}>
+        <form onSubmit={createTodo} className={style.form}>
           <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             className={style.input}
             type='text'
             placeholder='Add Todo'
@@ -71,11 +86,13 @@ function App() {
               key={index}
               todo={todo}
               toggleComplete={toggleComplete}
-              // deleteTodo={deleteTodo}
+            // deleteTodo={deleteTodo}
             />
           ))}
         </ul>
-        <p className={style.count}>You Have 2 Todos</p>
+        {todos.length < 1 ? null : (
+          <p className={style.count}>{`You have ${todos.length} todos`}</p>
+        )}
       </div>
     </div>
   );

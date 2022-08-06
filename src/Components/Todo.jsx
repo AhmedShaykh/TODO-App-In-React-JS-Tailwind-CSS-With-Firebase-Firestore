@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
+// import { FaRegEdit } from 'react-icons/fa';
 
 const style = {
     li: `flex justify-between bg-slate-600 text-slate-100 p-4 my-2 capitalize`,
@@ -7,14 +8,14 @@ const style = {
     row: `flex`,
     text: `ml-2 cursor-pointer`,
     textComplete: `ml-2 cursor-pointer line-through`,
-    button: `cursor-pointer flex items-center`,
+    button: `cursor-pointer flex flex-wrap items-center`,
 };
 
 const Todo = (
         { 
             todo,
             toggleComplete,
-            // deleteTodo
+            deleteTodo
         }
         ) => {
     return (
