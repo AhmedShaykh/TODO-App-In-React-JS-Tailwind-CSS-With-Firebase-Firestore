@@ -9,7 +9,7 @@ import {
   updateDoc,
   doc,
   addDoc,
-  // deleteDoc
+  deleteDoc
 } from 'firebase/firestore';
 
 const style = {
@@ -29,18 +29,18 @@ function App() {
   const [input, setInput] = useState('');
 
   // ============== Create Todo ============== //
-    const createTodo = async (e) => {
-      e.preventDefault(e);
-      if (input === '') {
-        alert('Please Enter a Valid TODO!');
-        return;
-      }
-      await addDoc(collection(db, 'todos'), {
-        text: input,
-        completed: false,
-      });
-      setInput('');
-    };
+  const createTodo = async (e) => {
+    e.preventDefault(e);
+    if (input === '') {
+      alert('Please Enter a Valid TODO!');
+      return;
+    }
+    await addDoc(collection(db, 'todos'), {
+      text: input,
+      completed: false,
+    });
+    setInput('');
+  };
 
   // ============== Read TODO ============== //
   useEffect(() => {
@@ -63,6 +63,9 @@ function App() {
   };
 
   // ============== Delete Todo ============== //
+  const deleteTodo = async (id) => {
+    await deleteDoc(doc(db, 'todo', id))
+  };
 
   return (
     <div className={style.bg}>
@@ -86,7 +89,7 @@ function App() {
               key={index}
               todo={todo}
               toggleComplete={toggleComplete}
-            // deleteTodo={deleteTodo}
+              deleteTodo={deleteTodo}
             />
           ))}
         </ul>
