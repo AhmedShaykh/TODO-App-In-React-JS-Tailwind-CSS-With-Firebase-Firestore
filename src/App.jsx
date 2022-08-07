@@ -9,30 +9,28 @@ import {
   updateDoc,
   doc,
   addDoc,
-  deleteDoc
+  deleteDoc,
 } from 'firebase/firestore';
 
 const style = {
   bg: `h-screen w-screen p-4 bg-gradient-to-r from-[#1D96A1] to-[#12EBCE]`,
-  container: `bg-slate-800 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
-  heading: `text-3xl font-bold text-center text-gray-100 p-2`,
+  container: `bg-zinc-800 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
+  heading: `text-4xl mb-3 font-bold text-center text-gray-100 p-2`,
   form: `flex justify-between`,
-  input: `border p-2 w-full text-xl bg-slate-400 placeholder-white text-gray-900`,
+  input: `border p-2 w-full text-xl bg-stone-500 placeholder-white text-gray-200`,
   button: `border p-4 ml-2 bg-slate-200`,
-  count: `text-center p-2 text-gray-100 font-bold`,
+  count: `text-center p-2 text-xl text-gray-100 font-bold`,
 };
 
-
 function App() {
-
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
 
-  // ============== Create Todo ============== //
+  // =============== Create TODO =============== //
   const createTodo = async (e) => {
     e.preventDefault(e);
     if (input === '') {
-      alert('Please Enter a Valid TODO!');
+      alert('Please enter a valid todo');
       return;
     }
     await addDoc(collection(db, 'todos'), {
@@ -42,7 +40,7 @@ function App() {
     setInput('');
   };
 
-  // ============== Read TODO ============== //
+  // =============== Read TODO =============== //
   useEffect(() => {
     const q = query(collection(db, 'todos'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -55,22 +53,22 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // ============== Update Todo ============== //
+  // =============== Update TODO =============== //
   const toggleComplete = async (todo) => {
     await updateDoc(doc(db, 'todos', todo.id), {
       completed: !todo.completed,
     });
   };
 
-  // ============== Delete Todo ============== //
+  // =============== Delete TODO =============== //
   const deleteTodo = async (id) => {
-    await deleteDoc(doc(db, 'todo', id))
+    await deleteDoc(doc(db, 'todos', id));
   };
 
   return (
     <div className={style.bg}>
       <div className={style.container}>
-        <h3 className={style.heading}>TODO APP</h3>
+        <h2 className={style.heading}>TODO APP</h2>
         <form onSubmit={createTodo} className={style.form}>
           <input
             value={input}
@@ -94,7 +92,7 @@ function App() {
           ))}
         </ul>
         {todos.length < 1 ? null : (
-          <p className={style.count}>{`You have ${todos.length} todos`}</p>
+          <p className={style.count}>{`You have ${todos.length} Todos`}</p>
         )}
       </div>
     </div>
