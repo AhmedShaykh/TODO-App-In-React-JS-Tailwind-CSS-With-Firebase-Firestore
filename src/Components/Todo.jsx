@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
-// import { FaRegEdit } from 'react-icons/fa';
 
 const style = {
     li: `flex justify-between bg-stone-700 text-slate-100 p-4 my-2 capitalize`,
